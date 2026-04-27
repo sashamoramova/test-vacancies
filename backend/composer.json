@@ -1,0 +1,30 @@
+{
+    "name": "vacancies/backend",
+    "type": "project",
+    "authors": [
+        {
+            "name": "sssmrkva",
+            "email": "morakovaaleksandra1@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.48",
+        "fakerphp/faker": "^1.24"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10"
+    }
+}

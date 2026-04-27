@@ -1,0 +1,104 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: test-vacancies-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - test-vacancies-net
+    ports:
+      - "${MYSQL_HOST_PORT:-3306}:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: test-vacancies-backend
+    restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    environment:
+      DB_HOST: mysql
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      YII_ENV: prod
+      YII_DEBUG: 'false'
+    volumes:
+      - ./backend:/app
+      - backend-vendor:/app/vendor
+    command: >
+      sh -c "
+      sed -i 's/\r$$//' /app/entrypoint.sh /app/yii 2>/dev/null;
+      chmod +x /app/entrypoint.sh /app/yii;
+      exec /app/entrypoint.sh
+      "
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - test-vacancies-net
+    ports:
+      - "8080:8080"
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: test-vacancies-nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - test-vacancies-net
+    ports:
+      - "18080:80"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: test-vacancies-frontend
+    restart: unless-stopped
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    environment:
+      NUXT_API_BASE: http://nginx/api
+      NITRO_HOST: 0.0.0.0
+      NITRO_PORT: 3000
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - test-vacancies-net
+    ports:
+      - "3000:3000"
+
+volumes:
+  mysql-data:
+  backend-vendor:
+  frontend-node-modules:
+
+networks:
+  test-vacancies-net:
+    driver: bridge
+    name: test-vacancies-net
+    ipam:
+      config:
+        - subnet: 172.16.100.0/24
