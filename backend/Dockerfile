@@ -20,11 +20,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 WORKDIR /app
 
-# Сначала только composer.json/lock - кешируем слой зависимостей
+# composer.json/lock - кешируем слой зависимостей
 COPY composer.json composer.lock* /app/
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist --no-interaction || true
 
-# Потом весь код
 COPY . /app
 
 RUN composer dump-autoload --optimize --no-dev --no-interaction || true \
