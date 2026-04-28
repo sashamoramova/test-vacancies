@@ -116,7 +116,14 @@ function formatSalary(n: number): string {
     </div>
 
     <div v-else>
-      <table>
+      <!-- <table> -->
+      <table class="vacancy-table">
+           <colgroup>
+            <col style="width: 53%" />
+            <col style="width: 14%" />
+            <col style="width: 18%" />
+            <col style="width: 15%" />
+           </colgroup>
         <thead>
           <tr>
             <th>Название</th>
@@ -225,6 +232,16 @@ th, td {
 }
 th {
   background: #f3f4f6;
+}
+.vacancy-table {
+  width: 100%;
+  table-layout: fixed;
+}
+.vacancy-table th,
+.vacancy-table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 button, select {
   padding: 6px 10px;
