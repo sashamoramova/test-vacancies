@@ -77,7 +77,8 @@ services:
       - 1.1.1.1
       - 8.8.8.8
     environment:
-      NUXT_API_BASE: http://nginx/api
+      NUXT_API_BASE: ${NUXT_API_BASE}
+      NUXT_PUBLIC_API_BASE: ${NUXT_PUBLIC_API_BASE}
       NITRO_HOST: 0.0.0.0
       NITRO_PORT: 3000
     volumes:

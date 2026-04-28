@@ -61,24 +61,24 @@ function formatSalary(n: number): string {
 </script>
 
 <template>
-  <div>
-    <div>
+  <div class="page">
+    <div class="hero">
       <h1>Сервис управления вакансиями</h1>
       <p>
         Посмотрите список, добавьте новую вакансию,
         откройте детальную карточку
       </p>
-      <div>
+      <div class="hero-actions">
         <NuxtLink to="/create">Создать вакансию</NuxtLink>
         <a href="/swagger" target="_blank">Документация API (Swagger)</a>
       </div>
     </div>
 
-    <div>
+    <div class="list-header">
       <h2>Список вакансий</h2>
     </div>
 
-    <div>
+    <div class="filters">
       <div>
         <label>Сортировка</label>
         <select v-model="sortField">
@@ -137,10 +137,10 @@ function formatSalary(n: number): string {
         </tbody>
       </table>
 
-      <div>
+      <div class="pagination">
         <button :disabled="page <= 1" @click="goToPage(page - 1)">← Назад</button>
         <span v-for="p in data.meta.pageCount" :key="p">
-          <button @click="goToPage(p)">{{ p }}</button>
+          <button :class="{ active: p === page }" @click="goToPage(p)">{{ p }}</button>
         </span>
         <button
           :disabled="page >= data.meta.pageCount"
@@ -154,3 +154,97 @@ function formatSalary(n: number): string {
     </div>
   </div>
 </template>
+
+<style scoped>
+.page,
+.page div {
+  box-sizing: border-box;
+}
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+}
+h1, h2, h3 {
+  margin: 0 0 12px;
+}
+p {
+  margin: 0 0 12px;
+  color: #444;
+}
+.hero,
+.list-header,
+.filters,
+table,
+.pagination {
+  margin-bottom: 14px;
+}
+.hero {
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.list-header {
+  padding-top: 4px;
+}
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.filters > div {
+  min-width: 220px;
+}
+label {
+  display: block;
+  margin-bottom: 6px;
+}
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: #fff;
+}
+th, td {
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  text-align: left;
+}
+th {
+  background: #f3f4f6;
+}
+button, select {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.pagination {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.pagination .active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+</style>

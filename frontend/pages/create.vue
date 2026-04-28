@@ -63,7 +63,7 @@ function cancel() {
 </script>
 
 <template>
-  <div>
+  <div class="page">
     <nav class="breadcrumbs">
       <NuxtLink to="/">Главная</NuxtLink>
       <span>›</span>
@@ -104,3 +104,78 @@ function cancel() {
     </form>
   </div>
 </template>
+
+<style scoped>
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+h1 {
+  margin: 0 0 16px;
+}
+.breadcrumbs {
+  margin-bottom: 10px;
+  color: #6b7280;
+  font-size: 14px;
+}
+.breadcrumbs a {
+  color: #2563eb;
+  text-decoration: none;
+}
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+.card {
+  max-width: 720px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.field {
+  margin-bottom: 14px;
+}
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+input, textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font: inherit;
+}
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+button {
+  padding: 8px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+button:hover:not(:disabled) {
+  background: #f8fafc;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn--ghost {
+  background: transparent;
+}
+.error-list {
+  margin: 8px 0 0;
+}
+.error {
+  color: #b91c1c;
+  margin: 0 0 6px;
+}
+</style>

@@ -50,7 +50,7 @@ function formatValue(key: string, value: any): string {
 </script>
 
 <template>
-  <div>
+  <div class="page">
     <nav>
       <NuxtLink to="/">Главная</NuxtLink>
       <span>›</span>
@@ -67,9 +67,9 @@ function formatValue(key: string, value: any): string {
     </div>
 
     <div v-else-if="vacancy">
-      <div>
+      <div class="controls">
         <strong>Показывать поля:</strong>
-        <div>
+        <div class="checkboxes">
           <label v-for="(label, key) in fieldLabels" :key="key">
             <input type="checkbox" v-model="visibleFields[key]" />
             {{ label }}
@@ -99,3 +99,67 @@ function formatValue(key: string, value: any): string {
     </div>
   </div>
 </template>
+
+<style scoped>
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+}
+nav {
+  margin-bottom: 10px;
+  color: #6b7280;
+}
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+h1 {
+  margin: 10px 0 14px;
+}
+strong {
+  display: block;
+  margin-bottom: 8px;
+}
+.controls {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+}
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+}
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 12px;
+  margin-bottom: 8px;
+}
+dl {
+  margin: 16px 0 0;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+dt {
+  font-weight: 700;
+  margin-top: 10px;
+}
+dt:first-child {
+  margin-top: 0;
+}
+dd {
+  margin: 4px 0 0;
+  color: #374151;
+  white-space: pre-wrap;
+}
+</style>

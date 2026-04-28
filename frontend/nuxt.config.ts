@@ -5,7 +5,7 @@ export default defineNuxtConfig({
     runtimeConfig: {
       apiBase: 'http://nginx/api',
       public: {
-        apiBase: '/api',
+        apiBase: 'http://localhost:8080/api',
       },
     },
 
