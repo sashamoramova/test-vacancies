@@ -43,3 +43,6 @@ docker compose exec backend sh tests/smoke.sh
 docker compose exec frontend npm test
 ```
 
+## Примеры запросов и ответов, описание структуры проекта
+
+см. readme_docs.md
