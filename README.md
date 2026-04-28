@@ -7,13 +7,7 @@
 - **Документация**: OpenAPI 3.0, Swagger UI
 - **Тесты**: Smoke API (backend), Vitest (frontend)
 
-- Backend API:  http://localhost:8080/api
-- Frontend:     http://localhost:3000
-- База данных:  localhost:3306
-- Swagger:      http://localhost:8080/swagger/index.html
-
-
-  ## Запуск 
+## Запуск 
 
 ```bash
 HTTPS:
@@ -26,7 +20,14 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-  ## Запуск тестов
+## Адреса
+
+- Backend API:  http://localhost:8080/api
+- Frontend:     http://localhost:3000
+- База данных:  localhost:3306
+- Swagger:      http://localhost:8080/swagger/index.html
+
+## Запуск тестов
 
 Из корня `test-vacancies`:
 
