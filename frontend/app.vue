@@ -1,18 +1,29 @@
 <template>
-    <div class="app">
-      <header class="app__header">
-        <span>Yii2 + Nuxt3</span>
-      </header>
-      <main class="app__main">
-        <NuxtPage />
-      </main>
-      <footer class="app__footer">
-        <NuxtLink to="https://github.com/sashamoramova/test-vacancies" class="app__brand" title="GitHub">
-          GitHub
-        </NuxtLink>
-      </footer>
-    </div>
-  </template>
+  <div class="app">
+    <header class="app__header">
+      <span>Yii2 + Nuxt3</span>
+      <a
+        class="app__brand"
+        href="http://localhost:8080/swagger/index.html"
+        target="_blank"
+        >Документация API (Swagger)</a
+      >
+    </header>
+    <main class="app__main">
+      <NuxtPage />
+    </main>
+    <footer class="app__footer">
+      <NuxtLink
+        to="https://github.com/sashamoramova/test-vacancies"
+        target="_blank"
+        class="app__brand"
+        title="GitHub"
+      >
+        GitHub
+      </NuxtLink>
+    </footer>
+  </div>
+</template>
 
 <style scoped>
 .app {

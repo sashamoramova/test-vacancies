@@ -1,14 +1,16 @@
 <script setup lang="ts">
-const route = useRoute()
-const api = useApi()
+const route = useRoute();
+const router = useRouter();
+const api = useApi();
 
-const id = computed(() => route.params.id as string)
+const id = computed(() => route.params.id as string);
 
 // Загрузка вакансии по id
-const { data: vacancy, pending, error } = await useAsyncData(
-  `vacancy-${id.value}`,
-  () => api.one(id.value)
-)
+const {
+  data: vacancy,
+  pending,
+  error,
+} = await useAsyncData(`vacancy-${id.value}`, () => api.one(id.value));
 
 const visibleFields = reactive<Record<string, boolean>>({
   id: true,
@@ -16,46 +18,43 @@ const visibleFields = reactive<Record<string, boolean>>({
   description: true,
   salary: true,
   created_at: true,
-})
+});
 
 const fieldLabels: Record<string, string> = {
-  id: 'ID',
-  title: 'Название',
-  description: 'Описание',
-  salary: 'Зарплата',
-  created_at: 'Дата создания',
-}
+  id: "ID",
+  title: "Название",
+  description: "Описание",
+  salary: "Зарплата",
+  created_at: "Дата создания",
+};
 
 function formatDate(iso: string): string {
   try {
-    return new Date(iso).toLocaleString('ru-RU', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    })
+    return new Date(iso).toLocaleString("ru-RU", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   } catch {
-    return iso
+    return iso;
   }
 }
 
 function formatValue(key: string, value: any): string {
-  if (key === 'salary') return new Intl.NumberFormat('ru-RU').format(value) + ' ₽'
-  if (key === 'created_at') return formatDate(value)
-  return String(value)
+  if (key === "salary")
+    return new Intl.NumberFormat("ru-RU").format(value) + " ₽";
+  if (key === "created_at") return formatDate(value);
+  return String(value);
 }
 </script>
 
 <template>
   <div class="page">
-    <nav>
-      <NuxtLink to="/">Главная</NuxtLink>
-      <span>›</span>
-      <span>Вакансия #{{ id }}</span>
-    </nav>
-
-    <NuxtLink to="/">← Назад к списку</NuxtLink>
+    <button class="btn btn--primary" @click="router.push('/')">
+      ← Назад к списку
+    </button>
 
     <div v-if="pending">Загрузка…</div>
 
@@ -104,16 +103,24 @@ function formatValue(key: string, value: any): string {
   margin: 0 auto;
   padding: 16px;
 }
-nav {
-  margin-bottom: 10px;
-  color: #6b7280;
-}
-a {
-  color: #2563eb;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 8px;
   text-decoration: none;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
 }
-a:hover {
-  text-decoration: underline;
+.btn--primary {
+  background: #2563eb;
+  color: #fff;
+}
+.btn--primary:hover {
+  background: #1d4ed8;
+  text-decoration: none;
 }
 h1 {
   margin: 10px 0 14px;
