@@ -13,7 +13,7 @@
         <NuxtPage />
       </main>
       <footer class="app__footer">
-        <span>Yii2 + Nuxt3 · <a href="/swagger" target="_blank">Документация API</a></span>
+        <span>Yii2 + Nuxt3 <a href="/swagger" target="_blank">Документация API</a></span>
       </footer>
     </div>
   </template>
