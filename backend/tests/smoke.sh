@@ -1,6 +1,5 @@
 # Проверка, что все эндпоинты отдают ожидаемые коды ответа.
 # Запуск: docker compose exec backend sh tests/smoke.sh
-# Либо на хосте:  bash tests/smoke.sh http://localhost:18080
 
 set -e
 BASE="${1:-http://nginx}"

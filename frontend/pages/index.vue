@@ -70,7 +70,7 @@ function formatSalary(n: number): string {
       </p>
       <div class="hero-actions">
         <NuxtLink to="/create">Создать вакансию</NuxtLink>
-        <a href="/swagger" target="_blank">Документация API (Swagger)</a>
+        <a href="http://localhost:8080/swagger/index.html" target="_blank">Документация API (Swagger)</a>
       </div>
     </div>
 
@@ -95,11 +95,7 @@ function formatSalary(n: number): string {
       </div>
     </div>
 
-    <div v-if="pending">
-      Загрузка списка вакансий…
-    </div>
-
-    <div v-else-if="error">
+    <div v-if="error">
       <h3>Не удалось загрузить список</h3>
       <p>
         {{ error.message || 'Проверьте, что backend запущен' }}
@@ -108,11 +104,6 @@ function formatSalary(n: number): string {
         <button @click="refresh()">Попробовать снова</button>
         <NuxtLink to="/create">Создать первую вакансию</NuxtLink>
       </div>
-    </div>
-
-    <div v-else-if="!data || !data.items.length">
-      <p>Пока вакансий нет.</p>
-      <NuxtLink to="/create">Создать первую вакансию</NuxtLink>
     </div>
 
     <div v-else>
@@ -133,7 +124,15 @@ function formatSalary(n: number): string {
           </tr>
         </thead>
         <tbody>
-          <tr v-for="v in data.items" :key="v.id">
+          <tr v-if="pending">
+            <td colspan="4" class="table-state">Загрузка списка вакансий…</td>
+          </tr>
+          <tr v-else-if="!data || !data.items.length">
+            <td colspan="4" class="table-state">
+              Пока вакансий нет. <NuxtLink to="/create">Создать первую вакансию</NuxtLink>
+            </td>
+          </tr>
+          <tr v-else v-for="v in data.items" :key="v.id">
             <td>{{ v.title }}</td>
             <td>{{ formatSalary(v.salary) }}</td>
             <td>{{ formatDate(v.created_at) }}</td>
@@ -168,7 +167,7 @@ function formatSalary(n: number): string {
   box-sizing: border-box;
 }
 .page {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 16px;
 }
@@ -242,6 +241,11 @@ th {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.table-state {
+  text-align: center;
+  color: #6b7280;
+  padding: 18px;
 }
 button, select {
   padding: 6px 10px;
