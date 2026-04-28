@@ -10,7 +10,6 @@ type Vacancy = {
   description: string
   salary: number
   created_at: string
-  updated_at: string
 }
 
 type ValidationError = { field: string; message: string }
@@ -26,7 +25,6 @@ describe('Vacancy API contract', () => {
       description: 'Yii2 + MySQL',
       salary: 150000,
       created_at: '2026-04-24 16:51:35',
-      updated_at: '2026-04-24 16:51:35',
     }
     expect(v.id).toBe(1)
     expect(v.title).toBeTypeOf('string')

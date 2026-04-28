@@ -17,7 +17,7 @@ class VacancyController extends ActiveController
     {
         $actions = parent::actions();
 
-        unset($actions['update'], $actions['delete'], $actions['options']);
+        unset($actions['update'], $actions['delete']);
 
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 
@@ -30,6 +30,7 @@ class VacancyController extends ActiveController
             'index'  => ['GET', 'HEAD'],
             'view'   => ['GET', 'HEAD'],
             'create' => ['POST'],
+            'options' => ['OPTIONS'],
         ];
     }
 

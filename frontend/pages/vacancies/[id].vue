@@ -16,7 +16,6 @@ const visibleFields = reactive<Record<string, boolean>>({
   description: true,
   salary: true,
   created_at: true,
-  updated_at: true,
 })
 
 const fieldLabels: Record<string, string> = {
@@ -25,7 +24,6 @@ const fieldLabels: Record<string, string> = {
   description: 'Описание',
   salary: 'Зарплата',
   created_at: 'Дата создания',
-  updated_at: 'Дата обновления',
 }
 
 function formatDate(iso: string): string {
@@ -44,7 +42,7 @@ function formatDate(iso: string): string {
 
 function formatValue(key: string, value: any): string {
   if (key === 'salary') return new Intl.NumberFormat('ru-RU').format(value) + ' ₽'
-  if (key === 'created_at' || key === 'updated_at') return formatDate(value)
+  if (key === 'created_at') return formatDate(value)
   return String(value)
 }
 </script>

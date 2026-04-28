@@ -52,7 +52,7 @@ $config = [
                     'controller' => 'vacancy',
                     'pluralize' => true,  // /vacancies вместо /vacancy
                     'prefix' => 'api',
-                    'only' => ['index', 'view', 'create'],  // GET list, GET one, POST create
+                    'only' => ['index', 'view', 'create', 'options'],  //  GET list, GET one, POST create, OPTIONS (CORS) 
                 ],
                
                 'GET /api/health' => 'site/health',

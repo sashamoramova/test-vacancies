@@ -109,38 +109,32 @@ function formatSalary(n: number): string {
     <div v-else>
       <!-- <table> -->
       <table class="vacancy-table">
-           <colgroup>
-            <col style="width: 53%" />
-            <col style="width: 14%" />
-            <col style="width: 18%" />
-            <col style="width: 15%" />
-           </colgroup>
-        <thead>
-          <tr>
-            <th>Название</th>
-            <th>Зарплата</th>
-            <th>Дата создания</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-if="pending">
-            <td colspan="4" class="table-state">Загрузка списка вакансий…</td>
-          </tr>
-          <tr v-else-if="!data || !data.items.length">
-            <td colspan="4" class="table-state">
-              Пока вакансий нет. <NuxtLink to="/create">Создать первую вакансию</NuxtLink>
-            </td>
-          </tr>
-          <tr v-else v-for="v in data.items" :key="v.id">
-            <td>{{ v.title }}</td>
-            <td>{{ formatSalary(v.salary) }}</td>
-            <td>{{ formatDate(v.created_at) }}</td>
-            <td>
-              <NuxtLink :to="`/vacancies/${v.id}`">Подробнее</NuxtLink>
-            </td>
-          </tr>
-        </tbody>
+          <thead>
+            <tr>
+              <th>Название</th>
+              <th>Зарплата</th>
+              <th>Дата создания</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-if="pending">
+              <td colspan="4" class="table-state">Загрузка списка вакансий…</td>
+            </tr>
+            <tr v-else-if="!data || !data.items.length">
+              <td colspan="4" class="table-state">
+                Пока вакансий нет. <NuxtLink to="/create">Создать первую вакансию</NuxtLink>
+              </td>
+            </tr>
+            <tr v-else v-for="v in data.items" :key="v.id">
+              <td>{{ v.title }}</td>
+              <td>{{ formatSalary(v.salary) }}</td>
+              <td>{{ formatDate(v.created_at) }}</td>
+              <td>
+                <NuxtLink :to="`/vacancies/${v.id}`">Подробнее</NuxtLink>
+              </td>
+            </tr>
+          </tbody>
       </table>
 
       <div class="pagination">
@@ -236,8 +230,29 @@ th {
   width: 100%;
   table-layout: fixed;
 }
+.vacancy-table thead,
+.vacancy-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.vacancy-table tbody {
+  display: block;
+  height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.vacancy-table th:nth-child(1),
+.vacancy-table td:nth-child(1) { width: 53%; }
+.vacancy-table th:nth-child(2),
+.vacancy-table td:nth-child(2) { width: 14%; }
+.vacancy-table th:nth-child(3),
+.vacancy-table td:nth-child(3) { width: 18%; }
+.vacancy-table th:nth-child(4),
+.vacancy-table td:nth-child(4) { width: 15%; }
 .vacancy-table th,
 .vacancy-table td {
+  box-sizing: border-box;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -4,7 +4,6 @@ export type Vacancy = {
     description: string
     salary: number
     created_at: string
-    updated_at: string
   }
   
   export type VacancyList = {
