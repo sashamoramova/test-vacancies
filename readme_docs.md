@@ -7,7 +7,7 @@
 ```bash
 curl -X GET "http://localhost:8080/api/vacancies?sort=-created_at&page=1&per-page=10"
 ```
-*если у вас натроен прокси-сервер, делайте все командаы через --noproxy "*"
+если у вас натроен прокси-сервер, делайте все команды через --noproxy "*"
 ```bash
 curl --noproxy "*" -X GET "http://localhost:8080/api/vacancies?sort=-created_at&page=1&per-page=10"
 ```
